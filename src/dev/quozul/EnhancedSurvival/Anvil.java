@@ -8,6 +8,8 @@ import org.bukkit.Material;
 import org.bukkit.event.inventory.PrepareAnvilEvent;
 import org.bukkit.event.Listener;
 
+import java.util.Map;
+
 public class Anvil implements Listener {
     @EventHandler
     public void onAnvilEvent(final PrepareAnvilEvent e) {
@@ -45,6 +47,39 @@ public class Anvil implements Listener {
                 result.setItemMeta(book_meta);
             } else
                 result.addUnsafeEnchantment(Enchantment.SILK_TOUCH, 2);
+
+            e.setResult(result);
+        // Other enchantments
+        } else {
+            final ItemStack result = e.getResult();
+
+            Map<Enchantment, Integer> enchantments2;
+            if (result.getType() == Material.ENCHANTED_BOOK) {
+                enchantments2 = enchant2.getStoredEnchants();
+            } else {
+                enchantments2 = item2.getEnchantments();
+            }
+
+            for (Map.Entry<Enchantment, Integer> enchant : enchantments2.entrySet()) {
+                int level = enchant.getValue();
+                // If enchant is on both items
+                if (enchant1 != null && enchant1.hasStoredEnchant(enchant.getKey()) || item1.getEnchantments().containsKey(enchant.getKey())) {
+                    // If enchant is same level
+                    if (enchant1 != null && enchant1.getStoredEnchantLevel(enchant.getKey()) == level || item1.getEnchantments().get(enchant.getKey()) == level)
+                        level++;
+                } else {
+                    int flevel = enchant1.getStoredEnchantLevel(enchant.getKey());
+                    if (enchant1 != null && flevel > level)
+                        level = flevel;
+                }
+
+                if (result.getType() == Material.ENCHANTED_BOOK) {
+                    final EnchantmentStorageMeta book_meta = (EnchantmentStorageMeta)result.getItemMeta();
+                    book_meta.addStoredEnchant(enchant.getKey(), level, true);
+                    result.setItemMeta(book_meta);
+                } else
+                    result.addUnsafeEnchantment(enchant.getKey(), level);
+            }
 
             e.setResult(result);
         }
