@@ -1,0 +1,5 @@
+name: EnhancedSurvival
+version: 0.4
+author: Quozul, nalo_
+main: dev.quozul.EnhancedSurvival.Main
+api-version: 1.15
