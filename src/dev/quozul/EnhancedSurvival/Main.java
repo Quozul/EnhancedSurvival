@@ -5,6 +5,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class Main extends JavaPlugin {
     public void onEnable() {
+    	System.out.println("[EnhancedSurvival] Le plugin vient de démarrer !");
         final FileConfiguration config = this.getConfig();
         this.saveDefaultConfig();
         this.getServer().getPluginManager().registerEvents(new Banners(), this);
@@ -17,5 +18,6 @@ public class Main extends JavaPlugin {
     }
     
     public void onDisable() {
+    	System.out.println("[EnhancedSurvival] Le plugin vient de se stopper !");
     }
 }
