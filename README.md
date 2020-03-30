@@ -44,6 +44,9 @@ It aims to improve and tweak the survival experience of Minecraft.
 - [ ] Uncraft stairs and slabs
 - [ ] Craft spawn eggs to change spawners' mobs (don't know if this is a good idea)
 
+#### Villagers
+- [ ] Random trades for nitwit villagers
+
 #### Miscellaneous
 - [x] Banners' names displayed above
 - [ ] Bigger phantoms the more nights a player don't sleep
