@@ -36,9 +36,9 @@ public class SpawnerGUI implements Listener {
         final Inventory inv = Bukkit.createInventory((InventoryHolder)null, 9, String.format("§eCage \u00e0 %s", entity_name));
 
         inv.setItem(1, this.createGuiItem("§r§5Informations", new ArrayList<String>(Arrays.asList("§r§7Cage \u00e0 §6" + entity_name, "§r§7Position:", "§r§7 - x: §6" + loc.getX(), "§r§7 - y: §6" + loc.getY(), "§r§7 - z: §6" + loc.getZ())), Material.SPAWNER, 1));
-        inv.setItem(3, this.createGuiItem("§r§5Delay d'apparition", new ArrayList<String>(Arrays.asList("§r§7Delay entre les apparitions", "§r§7Minimum: §6" + min_delay + "§7s", "§r§7Maximum: §6" + max_delay + "§7s", "", (delay_upgrade < 40.0) ? ("§r§7Prix pour -0.5 (en niveau d'exp): §6" + Math.round(delay_upgrade)) : "§r§cTrop cher!")), (delay_upgrade < 40.0) ? Material.REPEATER : Material.BARRIER, (int)(min_delay + max_delay) / 2));
-        inv.setItem(5, this.createGuiItem("§r§5Apparitions par cycle", new ArrayList<String>(Arrays.asList("§r§7Nombre d'apparition par cycle", "§r§7Actuellement: §6" + spawn_count, "", (spawn_count_upgrade < 40.0) ? ("§r§7Prix pour +1 (en niveau d'exp): §6" + Math.round(spawn_count_upgrade)) : "§r§cTrop cher!")), (spawn_count_upgrade < 40.0) ? Material.BLAZE_POWDER : Material.BARRIER, spawn_count));
-        inv.setItem(7, this.createGuiItem("§r§5Entit\u00e9s \u00e0 proximit\u00e9", new ArrayList<String>(Arrays.asList("§r§7Nombre maximum d'entit\u00e9s dans la zone d'apparition du spawner", "§r§7Actuellement: §6" + max_nearby, "", (max_nearby_upgrade < 40.0) ? ("§r§7Prix pour +1 (en niveau d'exp): §6" + Math.round(max_nearby_upgrade)) : "§r§cTrop cher!")), (max_nearby_upgrade < 40.0) ? Material.CREEPER_HEAD : Material.BARRIER, max_nearby));
+        inv.setItem(3, this.createGuiItem("§r§5Delay d'apparition", new ArrayList<String>(Arrays.asList("§r§7Delay entre les apparitions", "§r§7Minimum: §6" + min_delay + "§7s", "§r§7Maximum: §6" + max_delay + "§7s", "", (delay_upgrade < 40.0) ? ("§r§7Prix pour -0.5 (en niveau d'exp): §6" + Math.ceil(delay_upgrade)) : "§r§cTrop cher!")), (delay_upgrade < 40.0) ? Material.REPEATER : Material.BARRIER, (int)(min_delay + max_delay) / 2));
+        inv.setItem(5, this.createGuiItem("§r§5Apparitions par cycle", new ArrayList<String>(Arrays.asList("§r§7Nombre d'apparition par cycle", "§r§7Actuellement: §6" + spawn_count, "", (spawn_count_upgrade < 40.0) ? ("§r§7Prix pour +1 (en niveau d'exp): §6" + Math.ceil(spawn_count_upgrade)) : "§r§cTrop cher!")), (spawn_count_upgrade < 40.0) ? Material.BLAZE_POWDER : Material.BARRIER, spawn_count));
+        inv.setItem(7, this.createGuiItem("§r§5Entit\u00e9s \u00e0 proximit\u00e9", new ArrayList<String>(Arrays.asList("§r§7Nombre maximum d'entit\u00e9s dans la zone d'apparition du spawner", "§r§7Actuellement: §6" + max_nearby, "", (max_nearby_upgrade < 40.0) ? ("§r§7Prix pour +1 (en niveau d'exp): §6" + Math.ceil(max_nearby_upgrade)) : "§r§cTrop cher!")), (max_nearby_upgrade < 40.0) ? Material.CREEPER_HEAD : Material.BARRIER, max_nearby));
 
         player.openInventory(inv);
     }
@@ -48,7 +48,7 @@ public class SpawnerGUI implements Listener {
         final ItemMeta iMeta = i.getItemMeta();
 
         iMeta.setDisplayName(name);
-        iMeta.setLore((List)desc);
+        iMeta.setLore(desc);
         i.setItemMeta(iMeta);
 
         return i;
@@ -80,7 +80,7 @@ public class SpawnerGUI implements Listener {
                 final double max_delay = spawner.getMaxSpawnDelay();
                 final double delay_upgrade = 100.0 / ((min_delay / 20.0 + max_delay / 20.0) / 2.0);
                 if (player_level >= delay_upgrade) {
-                    p.setLevel(player_level - (int)Math.round(delay_upgrade));
+                    p.setLevel(player_level - (int)Math.ceil(delay_upgrade));
                     spawner.setMinSpawnDelay(Math.max((int)min_delay - 10, 0));
                     spawner.setMaxSpawnDelay(Math.max((int)max_delay - 10, 0));
                     break;
@@ -91,7 +91,7 @@ public class SpawnerGUI implements Listener {
                 final int spawn_count = spawner.getSpawnCount();
                 final double spawn_count_upgrade = Math.pow(spawn_count, 2.0);
                 if (player_level >= spawn_count_upgrade) {
-                    p.setLevel(player_level - (int)Math.round(spawn_count_upgrade));
+                    p.setLevel(player_level - (int)Math.ceil(spawn_count_upgrade));
                     spawner.setSpawnCount(spawn_count + 1);
                     break;
                 }
@@ -101,7 +101,7 @@ public class SpawnerGUI implements Listener {
                 final int max_nearby = spawner.getMaxNearbyEntities();
                 final double max_nearby_upgrade = Math.pow(2.0, max_nearby / 2.0);
                 if (player_level >= max_nearby_upgrade) {
-                    p.setLevel(player_level - (int)Math.round(max_nearby_upgrade));
+                    p.setLevel(player_level - (int)Math.ceil(max_nearby_upgrade));
                     spawner.setMaxNearbyEntities(max_nearby + 1);
                     break;
                 }
