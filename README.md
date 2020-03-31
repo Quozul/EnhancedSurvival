@@ -21,6 +21,8 @@ It aims to improve and tweak the survival experience of Minecraft.
 - [x] Remake join messages
 - [x] Chat formatting
 - [ ] Tell the player how many nights they haven't slept
+- [x] Mention a player
+- [x] Markdown and colors
 
 #### Enchantments
 - [x] Add Silk Touch II (via anvil) for collecting mob spawners
