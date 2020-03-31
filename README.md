@@ -18,18 +18,19 @@ It aims to improve and tweak the survival experience of Minecraft.
 #### Chat
 - [x] Remake death messages
 - [ ] Localisation for death messages
-- [ ] Remake join messages
-- [ ] Chat formatting
+- [x] Remake join messages
+- [x] Chat formatting
 - [ ] Tell the player how many nights they haven't slept
 
 #### Enchantments
 - [x] Add Silk Touch II (via anvil) for collecting mob spawners
-- [ ] Limit all enchantments to level X
+- [x] Limit all enchantments to level X
 - [ ] Allow smite, bane of arthropods and sharpness on the same weapon
-- [ ] Remove anvil repair cost limit
+- [x] Remove anvil repair cost limit
+- [ ] Remove "Too expensive" message in anvils
 
 #### Spawners
-- [x] Upgradable spawners (spawn rate, spawn amount, max nearby mobs)
+- [x] Upgradable spawners (spawn rate, spawn amount, max nearby mobs) (right-click on a spawner)
 - [ ] Spawners have they own XP which can be used to upgrade them
 - [ ] Change the mob type with a spawn egg in survival
 
@@ -48,7 +49,10 @@ It aims to improve and tweak the survival experience of Minecraft.
 - [ ] Random trades for nitwit villagers
 
 #### Miscellaneous
-- [x] Banners' names displayed above
+- [x] Banners' names displayed above (place a renamed banner)
 - [ ] Bigger phantoms the more nights a player don't sleep
+
+#### Security
+- [x] Add keys to containers (shift-right-click on a container with a renamed item)
 
 More coming...

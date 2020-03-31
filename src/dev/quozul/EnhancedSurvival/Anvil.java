@@ -1,6 +1,13 @@
 package dev.quozul.EnhancedSurvival;
 
+import net.md_5.bungee.api.ChatMessageType;
+import net.md_5.bungee.api.chat.TextComponent;
+import net.minecraft.server.v1_15_R1.EntityHuman;
+import org.bukkit.craftbukkit.v1_15_R1.entity.CraftHumanEntity;
+import org.bukkit.entity.HumanEntity;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.inventory.AnvilInventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.meta.EnchantmentStorageMeta;
@@ -23,65 +30,41 @@ public class Anvil implements Listener {
         if (item1 == null || item2 == null)
             return;
 
-        EnchantmentStorageMeta enchant1 = null;
-        EnchantmentStorageMeta enchant2 = null;
+        e.getInventory().setMaximumRepairCost(e.getInventory().getRepairCost() + 1);
+        ((Player)e.getView().getPlayer()).spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(String.format("§7Le coût de réparation de cet objet est de §r§6§l%s §r§7niveaux.", e.getInventory().getRepairCost())));
 
-        if (item1.getType() == Material.ENCHANTED_BOOK)
-            enchant1 = (EnchantmentStorageMeta)item1.getItemMeta();
-        if (item2.getType() == Material.ENCHANTED_BOOK)
-            enchant2 = (EnchantmentStorageMeta)item2.getItemMeta();
+        HumanEntity entity = e.getView().getPlayer();
+        EntityHuman entityHuman = ((CraftHumanEntity) entity).getHandle();
+        entityHuman.abilities.canInstantlyBuild = true;
 
-        final boolean item1_has_silk1 = item1.getEnchantments().containsKey(Enchantment.SILK_TOUCH) || enchant1 != null && enchant1.hasStoredEnchant(Enchantment.SILK_TOUCH);
-        final boolean item2_has_silk1 = item2.getEnchantments().containsKey(Enchantment.SILK_TOUCH) || enchant2 != null && enchant2.hasStoredEnchant(Enchantment.SILK_TOUCH);
-        final boolean item1_has_silk2 = item1.getEnchantmentLevel(Enchantment.SILK_TOUCH) == 2 || enchant1 != null && enchant1.getStoredEnchantLevel(Enchantment.SILK_TOUCH) == 2;
-        final boolean item2_has_silk2 = item2.getEnchantmentLevel(Enchantment.SILK_TOUCH) == 2 || enchant2 != null && enchant2.getStoredEnchantLevel(Enchantment.SILK_TOUCH) == 2;
-        final boolean both_silk = item1_has_silk1 && item2_has_silk1;
+        Map<Enchantment, Integer> enchant1 = null;
+        Map<Enchantment, Integer> enchant2 = null;
 
-        // Silk touch 2
-        if (both_silk || item1_has_silk2 || item2_has_silk2) {
-            final ItemStack result = e.getResult();
+        if (item1.getType() == Material.ENCHANTED_BOOK) enchant1 = ((EnchantmentStorageMeta)item1.getItemMeta()).getStoredEnchants();
+        else enchant1 = item1.getEnchantments();
+
+        if (item2.getType() == Material.ENCHANTED_BOOK) enchant2 = ((EnchantmentStorageMeta)item2.getItemMeta()).getStoredEnchants();
+        else enchant2 = item2.getEnchantments();
+
+        // Enchantment calculation
+        final ItemStack result = e.getResult();
+
+        for (Map.Entry<Enchantment, Integer> enchant : enchant2.entrySet()) {
+            int level = enchant.getValue();
+            // If enchant is on both items and is same level
+            if (enchant1.containsKey(enchant.getKey()) && enchant1.get(enchant.getKey()) == level) level++;
+
+            if (level > 10) level = 10;
 
             if (result.getType() == Material.ENCHANTED_BOOK) {
-                final EnchantmentStorageMeta book_meta = (EnchantmentStorageMeta) result.getItemMeta();
-                book_meta.addStoredEnchant(Enchantment.SILK_TOUCH, 2, true);
+                final EnchantmentStorageMeta book_meta = (EnchantmentStorageMeta)result.getItemMeta();
+                book_meta.addStoredEnchant(enchant.getKey(), level, true);
                 result.setItemMeta(book_meta);
-            } else
-                result.addUnsafeEnchantment(Enchantment.SILK_TOUCH, 2);
-
-            e.setResult(result);
-        // Other enchantments
-        } else {
-            final ItemStack result = e.getResult();
-
-            Map<Enchantment, Integer> enchantments2;
-            if (result.getType() == Material.ENCHANTED_BOOK) {
-                enchantments2 = enchant2.getStoredEnchants();
             } else {
-                enchantments2 = item2.getEnchantments();
+                result.addUnsafeEnchantment(enchant.getKey(), level);
             }
-
-            for (Map.Entry<Enchantment, Integer> enchant : enchantments2.entrySet()) {
-                int level = enchant.getValue();
-                // If enchant is on both items
-                if (enchant1 != null && enchant1.hasStoredEnchant(enchant.getKey()) || item1.getEnchantments().containsKey(enchant.getKey())) {
-                    // If enchant is same level
-                    if (enchant1 != null && enchant1.getStoredEnchantLevel(enchant.getKey()) == level || item1.getEnchantments().get(enchant.getKey()) == level)
-                        level++;
-                } else {
-                    int flevel = enchant1.getStoredEnchantLevel(enchant.getKey());
-                    if (enchant1 != null && flevel > level)
-                        level = flevel;
-                }
-
-                if (result.getType() == Material.ENCHANTED_BOOK) {
-                    final EnchantmentStorageMeta book_meta = (EnchantmentStorageMeta)result.getItemMeta();
-                    book_meta.addStoredEnchant(enchant.getKey(), level, true);
-                    result.setItemMeta(book_meta);
-                } else
-                    result.addUnsafeEnchantment(enchant.getKey(), level);
-            }
-
-            e.setResult(result);
         }
+
+        e.setResult(result);
     }
 }

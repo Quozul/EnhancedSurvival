@@ -15,6 +15,9 @@ public class Main extends JavaPlugin {
         this.getServer().getPluginManager().registerEvents(new Anvil(), this);
         this.getServer().getPluginManager().registerEvents(new Spawner(), this);
         this.getServer().getPluginManager().registerEvents(new SpawnerGUI(), this);
+        this.getServer().getPluginManager().registerEvents(new Chat(), this);
+        this.getServer().getPluginManager().registerEvents(new PlayerJoin(), this);
+        this.getServer().getPluginManager().registerEvents(new SecureChest(), this);
     }
     
     public void onDisable() {
