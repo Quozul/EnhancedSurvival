@@ -30,6 +30,7 @@ It aims to improve and tweak the survival experience of Minecraft.
 - [ ] Allow smite, bane of arthropods and sharpness on the same weapon
 - [x] Remove anvil repair cost limit
 - [ ] Remove "Too expensive" message in anvils
+- [ ] Add lightning enchantment
 
 #### Spawners
 - [x] Upgradable spawners (spawn rate, spawn amount, max nearby mobs) (right-click on a spawner)
@@ -37,7 +38,8 @@ It aims to improve and tweak the survival experience of Minecraft.
 - [ ] Change the mob type with a spawn egg in survival
 
 #### Mobs
-- [ ] Mobs can breed themselves by eating plants on ground (dropped items or grown plants)
+- [ ] Animals can breed themselves by eating plants on ground (dropped items or grown plants)
+- [ ] Random chance to get a mob head
 
 #### Plants
 - [ ] Right click on plants to harvest them
@@ -53,6 +55,11 @@ It aims to improve and tweak the survival experience of Minecraft.
 #### Miscellaneous
 - [x] Banners' names displayed above (place a renamed banner)
 - [ ] Bigger phantoms the more nights a player don't sleep
+- [ ] Damage entity when stepping on stone cutter
+- [ ] Teleporters using end gates
+
+#### Potions
+- [ ] Remove potion limits
 
 #### Security
 - [x] Add keys to containers (shift-right-click on a container with a renamed item)
