@@ -1,17 +1,13 @@
 package dev.quozul.EnhancedSurvival;
 
+import org.bukkit.entity.*;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.EventHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.event.entity.EntityDamageByBlockEvent;
 import org.bukkit.Material;
-import org.bukkit.entity.LivingEntity;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.entity.FallingBlock;
-import org.bukkit.entity.Skeleton;
-import org.bukkit.entity.Arrow;
 import com.meowj.langutils.lang.LanguageHelper;
-import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.Statistic;
 import org.bukkit.event.entity.PlayerDeathEvent;
@@ -46,19 +42,21 @@ public class Death implements Listener {
             if (nEvent.getDamager() instanceof Arrow) {
                 final Arrow arrow = (Arrow)nEvent.getDamager();
                 cause = "ARROW";
-                if (arrow.getShooter() instanceof Skeleton) {
-                    using = LanguageHelper.getItemDisplayName(((Skeleton)arrow.getShooter()).getEquipment().getItemInMainHand(), "fr_FR");
-                } else if (arrow.getShooter() instanceof Player) {
+                if (arrow.getShooter() instanceof Player) {
                     killer = ((Player)arrow.getShooter()).getDisplayName();
                     using = LanguageHelper.getItemDisplayName(((Player)arrow.getShooter()).getEquipment().getItemInMainHand(), "fr_FR");
+                } else {
+                    killer = LanguageHelper.getEntityName(((LivingEntity)arrow.getShooter()).getType(), "fr_FR");
+                    System.out.println(killer);
+                    using = LanguageHelper.getItemDisplayName(((LivingEntity) arrow.getShooter()).getEquipment().getItemInMainHand(), "fr_FR");
                 }
-            } else if (cause == "FALLING_BLOCK") {
+            } else if (cause.equals("FALLING_BLOCK")) {
                 killer = LanguageHelper.getItemDisplayName(new ItemStack(((FallingBlock)nEvent.getDamager()).getBlockData().getMaterial()), "fr_FR");
             } else if (((LivingEntity)nEvent.getDamager()).getEquipment().getItemInMainHand().getType() != Material.AIR) {
                 using = LanguageHelper.getItemDisplayName(((LivingEntity)nEvent.getDamager()).getEquipment().getItemInMainHand(), "fr_FR");
             }
 
-            if (using == "") {
+            if (using.equals("")) {
                 death_message = this.conf.getString(cause) + this.conf.getString("by_message");
             } else {
                 death_message = this.conf.getString(cause) + this.conf.getString("by_message") + this.conf.getString("using_message");
@@ -66,11 +64,11 @@ public class Death implements Listener {
         } else if (entity.getLastDamageCause() instanceof EntityDamageByBlockEvent && !cause.matches("LAVA|VOID")) {
             final EntityDamageByBlockEvent bEvent = (EntityDamageByBlockEvent)entity.getLastDamageCause();
             if (bEvent.getDamager().getBlockData().getMaterial().toString() == "SWEET_BERRY_BUSH")
-                killer = "Buisson \u00e0 baies sucr\u00e9es";
+                killer = "Buisson à baies sucrées";
             else
                 killer = LanguageHelper.getItemDisplayName(new ItemStack(bEvent.getDamager().getBlockData().getMaterial()), "fr_FR");
             death_message = this.conf.getString(cause) + this.conf.getString("by_message");
-        } else if (cause == "SUFFOCATION") {
+        } else if (cause.equals("SUFFOCATION")) {
             killer = LanguageHelper.getItemDisplayName(new ItemStack(entity.getLocation().add(0.0, 1.0, 0.0).getBlock().getBlockData().getMaterial()), "fr_FR");
             death_message = this.conf.getString(cause) + this.conf.getString("in_message");
         } else {

@@ -18,6 +18,7 @@ public class Main extends JavaPlugin {
         this.getServer().getPluginManager().registerEvents(new Chat(), this);
         this.getServer().getPluginManager().registerEvents(new PlayerJoin(), this);
         this.getServer().getPluginManager().registerEvents(new SecureChest(), this);
+        this.getServer().getPluginManager().registerEvents(new Nitwit(), this);
     }
     
     public void onDisable() {
