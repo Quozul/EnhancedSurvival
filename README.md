@@ -48,7 +48,7 @@ It aims to improve and tweak the survival experience of Minecraft.
 - [ ] Craft spawn eggs to change spawners' mobs (don't know if this is a good idea)
 
 #### Villagers
-- [ ] Random trades for nitwit villagers
+- [x] Random trades for nitwit villagers
 
 #### Miscellaneous
 - [x] Banners' names displayed above (place a renamed banner)
