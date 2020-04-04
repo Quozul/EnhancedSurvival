@@ -10,20 +10,33 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 
 public class PlayerJoin implements Listener {
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent e) {
         e.setJoinMessage(String.format("§7[§6+§7]§r %s", e.getPlayer().getDisplayName()));
 
-        String sql = "INSERT INTO user(uuid) VALUES(?)";
+        String sql = "SELECT ban_end FROM user WHERE uuid = ?";
         PreparedStatement stmt = null;
         try {
             stmt = Main.connection.prepareStatement(sql);
             stmt.setString(1, e.getPlayer().getUniqueId().toString());
-            stmt.executeUpdate();
+            ResultSet results = stmt.executeQuery();
+
+            // If player isn't in database, add it, else do nothing
+            if (!results.next()) {
+                sql = "INSERT INTO user(uuid) VALUES(?)";
+                stmt = null;
+                try {
+                    stmt = Main.connection.prepareStatement(sql);
+                    stmt.setString(1, e.getPlayer().getUniqueId().toString());
+                    stmt.executeUpdate();
+                } catch (SQLException err) {
+                    err.printStackTrace();
+                }
+            }
         } catch (SQLException err) {
             err.printStackTrace();
         }

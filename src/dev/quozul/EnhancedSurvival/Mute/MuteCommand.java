@@ -40,6 +40,8 @@ public class MuteCommand implements CommandExecutor, Listener {
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+        if (!sender.isOp()) return false;
+
         for (Player p : Bukkit.getServer().getOnlinePlayers()) {
             if (p.getDisplayName().equals(args[0])) {
                 if (isMuted(p)) {
@@ -89,6 +91,5 @@ public class MuteCommand implements CommandExecutor, Listener {
             e.setCancelled(true);
             e.getPlayer().sendMessage("§7Désolé, vous n'avez pas la permission de parler pour le moment.");
         }
-
     }
 }

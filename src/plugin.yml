@@ -17,7 +17,3 @@ commands:
     description: Ban a player for a specified amount of time
     usage: /tempban <player name> <time> <reason>
     default: op
-  untempban:
-    description: Remove the temporary ban for a player
-    usage: /untempban <player name>
-    default: op
