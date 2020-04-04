@@ -57,11 +57,16 @@ It aims to improve and tweak the survival experience of Minecraft.
 - [ ] Bigger phantoms the more nights a player don't sleep
 - [ ] Damage entity when stepping on stone cutter
 - [ ] Teleporters using end gates
+- [ ] Server's motd
 
 #### Potions
 - [ ] Remove potion limits
 
 #### Security
 - [x] Add keys to containers (shift-right-click on a container with a renamed item)
+
+#### Administration
+- [x] Mute and unmute players
+- [ ] Temporary bans
 
 More coming...

@@ -1,5 +1,23 @@
 name: EnhancedSurvival
-version: 0.5
+version: 0.6
 author: Quozul, nalo_
 main: dev.quozul.EnhancedSurvival.Main
 api-version: 1.15
+
+commands:
+  mute:
+    description: Mute a player for a specified amount of time
+    usage: /mute <player name> <time> <reason>
+    default: op
+  unmute:
+    description: Unmute a player
+    usage: /unmute <player name>
+    default: op
+  tempban:
+    description: Ban a player for a specified amount of time
+    usage: /tempban <player name> <time> <reason>
+    default: op
+  untempban:
+    description: Remove the temporary ban for a player
+    usage: /untempban <player name>
+    default: op

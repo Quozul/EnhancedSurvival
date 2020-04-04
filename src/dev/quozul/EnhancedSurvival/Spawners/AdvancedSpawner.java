@@ -1,4 +1,4 @@
-package dev.quozul.EnhancedSurvival;
+package dev.quozul.EnhancedSurvival.Spawners;
 
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.entity.Player;
@@ -40,7 +40,7 @@ public class AdvancedSpawner implements Listener {
     public void onExpHit(final ExpBottleEvent e) {
         final Location location = e.getEntity().getLocation();
         final Location block_location = this.blockInArea(Material.SPAWNER, location);
-        if (block_location == new Location(location.getWorld(), 0.0, -1.0, 0.0)) {
+        if (block_location.equals(new Location(location.getWorld(), 0.0, -1.0, 0.0))) {
             return;
         }
         final Block block = block_location.getBlock();

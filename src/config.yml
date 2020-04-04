@@ -38,3 +38,8 @@ using_message: ' §7avec §8[using]'
 escaping_message: ' pour tenter d''échapper à §6[killer]'
 
 death_counter_message: '§6[victim]§7 est à §8[deaths]§7 morts'
+
+# database configuration
+database-username: 'enhanced_survival'
+database-password: 'enhanced_survival'
+database-url: 'jdbc:mysql://localhost:3306/enhanced_survival'
