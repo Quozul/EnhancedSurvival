@@ -13,6 +13,8 @@ import java.sql.SQLException;
 public class UnMuteCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+        if (!sender.isOp()) return false;
+        
         for (Player p : Bukkit.getServer().getOnlinePlayers()) {
             if (p.getDisplayName().equals(args[0])) {
                 String sql = "UPDATE user SET mute_end = NOW() WHERE uuid = ?;";

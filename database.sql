@@ -6,7 +6,6 @@ create table if not exists `user` (
 	uuid char(36) primary key,
     warns integer default 0,
     mute_end timestamp default NOW(),
-    ban_end timestamp default NOW(),
 
     team integer default 0 references `team`(team_id)
 );

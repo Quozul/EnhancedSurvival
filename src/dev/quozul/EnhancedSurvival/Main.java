@@ -4,6 +4,7 @@ import dev.quozul.EnhancedSurvival.Mute.MuteCommand;
 import dev.quozul.EnhancedSurvival.Mute.UnMuteCommand;
 import dev.quozul.EnhancedSurvival.Spawners.Spawner;
 import dev.quozul.EnhancedSurvival.Spawners.SpawnerGUI;
+import dev.quozul.EnhancedSurvival.TempBan.TempBanCommand;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -45,6 +46,9 @@ public class Main extends JavaPlugin {
         this.getCommand("mute").setExecutor(new MuteCommand());
         this.getCommand("unmute").setExecutor(new UnMuteCommand());
         this.getServer().getPluginManager().registerEvents(new MuteCommand(), this);
+
+        this.getCommand("tempban").setExecutor(new TempBanCommand());
+        this.getServer().getPluginManager().registerEvents(new TempBanCommand(), this);
 
         // Database connection
         try {
