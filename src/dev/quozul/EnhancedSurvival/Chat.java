@@ -16,13 +16,14 @@ public class Chat implements Listener {
         e.setFormat("§7%1$s:§r %2$s");
 
         // Markdown format
-        int i_start = message.indexOf("*");
-        int i_end = message.indexOf("*", i_start);
-
-        message = message.replaceAll("(\\*\\*)(.*?)\\1", "§l$2§r"); // bold
-        message = message.replaceAll("(__)(.*?)\\1", "§n$2§r"); // underline
-        message = message.replaceAll("(~~)(.*?)\\1", "§m$2§r"); // stroke
-        message = message.replaceAll("(\\*|_)(.*?)\\1", "§o$2§r"); // emphasis
+        if (message.matches("(\\*\\*)(.*?)\\1"))
+            message = message.replaceAll("(\\*\\*)(.*?)\\1", "§l$2§r"); // bold
+        if (message.matches("(__)(.*?)\\1"))
+            message = message.replaceAll("(__)(.*?)\\1", "§n$2§r"); // underline
+        if (message.matches("(~~)(.*?)\\1"))
+            message = message.replaceAll("(~~)(.*?)\\1", "§m$2§r"); // stroke
+        if (message.matches("(\\*\\*)(.*?)\\1"))
+            message = message.replaceAll("(\\*|_)(.*?)\\1", "§o$2§r"); // emphasis
         message = message.replaceAll("&([0-9a-f])", "§$1"); // colors
 
         e.setMessage(message);

@@ -1,5 +1,6 @@
-package dev.quozul.EnhancedSurvival;
+package dev.quozul.EnhancedSurvival.Spawners;
 
+import dev.quozul.EnhancedSurvival.Main;
 import org.bukkit.Location;
 
 public class RegisterSpawner {

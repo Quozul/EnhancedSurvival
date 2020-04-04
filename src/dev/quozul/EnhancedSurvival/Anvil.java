@@ -3,7 +3,9 @@ package dev.quozul.EnhancedSurvival;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.minecraft.server.v1_15_R1.EntityHuman;
+import net.minecraft.server.v1_15_R1.ToolMaterial;
 import org.bukkit.craftbukkit.v1_15_R1.entity.CraftHumanEntity;
+import org.bukkit.entity.Damageable;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -32,10 +34,6 @@ public class Anvil implements Listener {
 
         e.getInventory().setMaximumRepairCost(e.getInventory().getRepairCost() + 1);
         ((Player)e.getView().getPlayer()).spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(String.format("§7Le coût de réparation de cet objet est de §r§6§l%s §r§7niveaux.", e.getInventory().getRepairCost())));
-
-        HumanEntity entity = e.getView().getPlayer();
-        EntityHuman entityHuman = ((CraftHumanEntity) entity).getHandle();
-        entityHuman.abilities.canInstantlyBuild = true;
 
         Map<Enchantment, Integer> enchant1 = null;
         Map<Enchantment, Integer> enchant2 = null;

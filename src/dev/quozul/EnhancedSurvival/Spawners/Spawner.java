@@ -1,4 +1,4 @@
-package dev.quozul.EnhancedSurvival;
+package dev.quozul.EnhancedSurvival.Spawners;
 
 import org.bukkit.entity.EntityType;
 import org.bukkit.event.block.BlockPlaceEvent;
