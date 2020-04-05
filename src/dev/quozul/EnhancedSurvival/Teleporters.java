@@ -8,6 +8,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.inventory.ItemStack;
 
 public class Teleporters implements Listener {
@@ -52,6 +53,14 @@ public class Teleporters implements Listener {
             world.dropItemNaturally(location, new ItemStack(Material.ENDER_PEARL));
             // Utils.removeArmorStand(block.getLocation().add(.5, 1, .5));
             player.playSound(location, Sound.BLOCK_END_GATEWAY_SPAWN, 1, 1);
+        }
+    }
+
+    @EventHandler
+    public void onPlayerTeleport(PlayerTeleportEvent e) {
+        if (e.getCause() == PlayerTeleportEvent.TeleportCause.END_GATEWAY) {
+            e.getFrom().add(e.getFrom().getDirection()).add(0, 1, 0).getBlock().breakNaturally();
+            e.getTo().getWorld().dropItemNaturally(e.getTo(), new ItemStack(Material.ENDER_PEARL));
         }
     }
 }

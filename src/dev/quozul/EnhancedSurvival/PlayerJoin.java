@@ -60,6 +60,9 @@ public class PlayerJoin implements Listener {
         world.playEffect(location.add(0, 0, 0), Effect.ENDER_SIGNAL, 100);
 
         e.setQuitMessage(String.format("§7[§6-§7]§r %s", e.getPlayer().getDisplayName()));
+
+        for (Player p : Bukkit.getOnlinePlayers())
+            sendTablist(p, "§6§lPickaria", String.format("§7%d§6/§7%d §6joueurs", Bukkit.getOnlinePlayers().size(), Bukkit.getMaxPlayers()));
     }
 
     public void sendTablist(Player p, String Title, String subTitle) {
