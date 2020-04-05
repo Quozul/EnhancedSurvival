@@ -24,8 +24,8 @@ public class Spawner implements Listener {
             return;
 
         final CreatureSpawner original_spawner = (CreatureSpawner)e.getBlock().getState();
-        if (e.getPlayer().getInventory().getItemInMainHand().getEnchantmentLevel(Enchantment.SILK_TOUCH) == 2) {
-            System.out.println("Spawner brocken with silk touch 2");
+        if (e.getPlayer().getInventory().getItemInMainHand().getEnchantmentLevel(Enchantment.SILK_TOUCH) >= 2) {
+            System.out.println("Spawner broken with silk touch 2");
             e.setExpToDrop(0);
 
             final Location l = e.getBlock().getLocation();
@@ -38,23 +38,23 @@ public class Spawner implements Listener {
 
             spawner_meta.setDisplayName(name);
 
-            final List<String> lore = new ArrayList<String>();
+            final List<String> lore = new ArrayList<>();
 
             lore.add(0, String.format("§r§7Delay d'appatition: %d-%ds", original_spawner.getMinSpawnDelay() / 20, original_spawner.getMaxSpawnDelay() / 20));
             lore.add(1, String.format("§r§7Nombre d'apparition par cycle: %d", original_spawner.getSpawnCount()));
             lore.add(2, String.format("§r§7Nombre d'entit\u00e9s \u00e0 proximit\u00e9: %d", original_spawner.getMaxNearbyEntities()));
-            spawner_meta.setLore((List)lore);
+            spawner_meta.setLore(lore);
             spawner_item.setItemMeta(spawner_meta);
 
             final NBTItem spawner_nbt = new NBTItem(spawner_item);
             final NBTCompound BlockEntityTag = spawner_nbt.addCompound("BlockEntityTag");
 
             BlockEntityTag.addCompound("SpawnData").setString("id", spawn_type);
-            BlockEntityTag.setInteger("SpawnCount", Integer.valueOf(original_spawner.getSpawnCount()));
-            BlockEntityTag.setInteger("MaxNearbyEntities", Integer.valueOf(original_spawner.getMaxNearbyEntities()));
-            BlockEntityTag.setInteger("Delay", Integer.valueOf(original_spawner.getDelay()));
-            BlockEntityTag.setInteger("MinSpawnDelay", Integer.valueOf(original_spawner.getMinSpawnDelay()));
-            BlockEntityTag.setInteger("MaxSpawnDelay", Integer.valueOf(original_spawner.getMaxSpawnDelay()));
+            BlockEntityTag.setInteger("SpawnCount", original_spawner.getSpawnCount());
+            BlockEntityTag.setInteger("MaxNearbyEntities", original_spawner.getMaxNearbyEntities());
+            BlockEntityTag.setInteger("Delay", original_spawner.getDelay());
+            BlockEntityTag.setInteger("MinSpawnDelay", original_spawner.getMinSpawnDelay());
+            BlockEntityTag.setInteger("MaxSpawnDelay", original_spawner.getMaxSpawnDelay());
             spawner_item = spawner_nbt.getItem();
 
             l.getWorld().dropItemNaturally(l, spawner_item);
