@@ -6,6 +6,7 @@ import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.GameMode;
 import org.bukkit.Sound;
 import org.bukkit.block.BlockState;
+import org.bukkit.block.Chest;
 import org.bukkit.block.Lockable;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -21,9 +22,9 @@ public class SecureChest implements Listener {
     public void onPlayerInteract(PlayerInteractEvent e) {
         if (e.getClickedBlock() != null && e.getClickedBlock().getState() instanceof Lockable) {
 
-            NBTTileEntity chest = new NBTTileEntity(e.getClickedBlock().getState());
-            String lock = chest.getString("Lock");
-            boolean isLocked = lock != null && !lock.equals("");
+            Chest chest = (Chest)e.getClickedBlock().getState();
+            String lock = chest.getLock();
+            boolean isLocked = chest.isLocked();
 
             ItemStack item = e.getItem();
             boolean sneak = e.getPlayer().isSneaking();
@@ -36,7 +37,8 @@ public class SecureChest implements Listener {
                 if (password.equals(lock)) {
                     if (sneak) {
                         e.setCancelled(true);
-                        chest.setString("Lock", null);
+                        chest.setLock(null);
+                        chest.update();
                         e.getPlayer().spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText("§6§lLa clé a été retirée du conteneur."));
                     }
                 } else {
@@ -47,7 +49,8 @@ public class SecureChest implements Listener {
             } else {
                 if (sneak && !password.equals("")) {
                     e.setCancelled(true);
-                    chest.setString("Lock", password);
+                    chest.setLock(password);
+                    chest.update();
                     e.getPlayer().spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(String.format("§6§lLe conteneur a été vérouillé avec la clé: §r§7%s", password)));
                 }
             }
@@ -58,10 +61,9 @@ public class SecureChest implements Listener {
     public void onBlockBreak(BlockBreakEvent e) {
         BlockState blockState = e.getBlock().getState();
         if (blockState instanceof Lockable) {
-            NBTTileEntity chest = new NBTTileEntity(blockState);
-            String lock = chest.getString("Lock");
+            Chest chest = (Chest)blockState;
 
-            if (lock != null && !lock.equals("") && e.getPlayer().getGameMode() != GameMode.CREATIVE) {
+            if (chest.isLocked() && e.getPlayer().getGameMode() != GameMode.CREATIVE) {
                 e.setCancelled(true);
                 e.getPlayer().spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText("§c§lCe conteneur est vérouillé."));
             }

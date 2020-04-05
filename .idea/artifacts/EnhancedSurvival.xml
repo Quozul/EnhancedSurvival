@@ -3,6 +3,7 @@
     <output-path>$PROJECT_DIR$/out/artifacts</output-path>
     <root id="archive" name="EnhancedSurvival.jar">
       <element id="module-output" name="EnhancedSurvival" />
+      <element id="extracted-dir" path="$USER_HOME$/Documents/projets/java/mysql-connector-java-5.1.48-bin.jar" path-in-jar="/" />
     </root>
   </artifact>
 </component>
