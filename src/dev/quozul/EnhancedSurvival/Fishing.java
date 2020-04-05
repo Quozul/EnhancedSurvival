@@ -5,12 +5,14 @@ import java.util.Map;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Item;
+import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerFishEvent;
 import org.bukkit.inventory.ItemStack;
 
 public class Fishing implements Listener {
-	
+
+	@EventHandler
 	public void onFish(PlayerFishEvent e) {
 		
 		if(e.getCaught() instanceof Item) {

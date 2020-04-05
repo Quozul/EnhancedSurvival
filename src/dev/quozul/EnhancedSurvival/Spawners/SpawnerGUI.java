@@ -35,7 +35,7 @@ public class SpawnerGUI implements Listener {
         final double delay_upgrade = 100.0 / ((min_delay + max_delay) / 2.0);
         final double spawn_count_upgrade = Math.pow(spawn_count, 2.0);
         final double max_nearby_upgrade = Math.pow(2.0, max_nearby / 2.0);
-        final double required_player_range_upgrade = Math.pow(2.0, required_player_range / 2.0);
+        final double required_player_range_upgrade = required_player_range * 1.25;
 
         final Inventory inv = Bukkit.createInventory(null, 9, String.format("§eCage à %s", entity_name));
 
@@ -73,7 +73,7 @@ public class SpawnerGUI implements Listener {
         if (clickedItem == null || clickedItem.getType().equals(Material.AIR))
             return;
 
-        final List<String> lore = e.getInventory().getItem(1).getItemMeta().getLore();
+        final List<String> lore = e.getInventory().getItem(0).getItemMeta().getLore();
         final Location loc = new Location(p.getWorld(), Double.parseDouble(lore.get(2).substring(lore.get(2).lastIndexOf("§6") + 2)), Double.parseDouble(lore.get(3).substring(lore.get(3).lastIndexOf("§6") + 2)), Double.parseDouble(lore.get(4).substring(lore.get(4).lastIndexOf("§6") + 2)));
         final CreatureSpawner spawner = (CreatureSpawner)loc.getBlock().getState();
         final ItemStack clicked_item = e.getCurrentItem();
@@ -114,10 +114,10 @@ public class SpawnerGUI implements Listener {
             }
             case ARROW: {
                 final int required_player_range = spawner.getRequiredPlayerRange();
-                final double required_player_range_upgrade = Math.pow(2.0, required_player_range / 2.0);
+                final double required_player_range_upgrade = required_player_range * 1.25;
                 if (player_level >= required_player_range_upgrade) {
                     p.setLevel(player_level - (int)Math.ceil(required_player_range_upgrade));
-                    spawner.setMaxNearbyEntities(required_player_range + 1);
+                    spawner.setRequiredPlayerRange(required_player_range + 1);
                     break;
                 }
                 break;
