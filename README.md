@@ -17,7 +17,7 @@ It aims to improve and tweak the survival experience of Minecraft.
 
 #### Chat
 - [x] Remake death messages
-- [ ] Localisation for death messages
+- [ ] Language localisation for death messages
 - [x] Remake join messages
 - [x] Chat formatting
 - [ ] Tell the player how many nights they haven't slept
@@ -31,6 +31,7 @@ It aims to improve and tweak the survival experience of Minecraft.
 - [x] Remove anvil repair cost limit
 - [ ] Remove "Too expensive" message in anvils
 - [ ] Add lightning enchantment
+- [x] Fishing with flame or fire aspect gives cooked fish
 
 #### Spawners
 - [x] Upgradable spawners (spawn rate, spawn amount, max nearby mobs) (right-click on a spawner)
@@ -56,8 +57,8 @@ It aims to improve and tweak the survival experience of Minecraft.
 - [x] Banners' names displayed above (place a renamed banner)
 - [ ] Bigger phantoms the more nights a player don't sleep
 - [ ] Damage entity when stepping on stone cutter
-- [ ] Teleporters using end gates
-- [ ] Server's motd
+- [x] Teleporters using end gates
+- [x] Server's motd
 
 #### Potions
 - [ ] Remove potion limits
@@ -67,6 +68,6 @@ It aims to improve and tweak the survival experience of Minecraft.
 
 #### Administration
 - [x] Mute and unmute players
-- [ ] Temporary bans
+- [x] Temporary bans
 
 More coming...
