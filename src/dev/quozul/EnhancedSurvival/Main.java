@@ -42,6 +42,7 @@ public class Main extends JavaPlugin {
         this.getServer().getPluginManager().registerEvents(new PlayerJoin(), this);
         this.getServer().getPluginManager().registerEvents(new SecureChest(), this);
         this.getServer().getPluginManager().registerEvents(new Nitwit(), this);
+        this.getServer().getPluginManager().registerEvents(new Fishing(), this);
 
         this.getCommand("mute").setExecutor(new MuteCommand());
         this.getCommand("unmute").setExecutor(new UnMuteCommand());
