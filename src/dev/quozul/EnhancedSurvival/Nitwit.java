@@ -43,8 +43,7 @@ public class Nitwit implements Listener {
 
                 if (tradeCount == 0) {
                     List<MerchantRecipe> recipes = new ArrayList<>();
-                    //int recipeCount = (int)Math.floor(Math.random() * 4);
-                    int recipeCount = 100;
+                    int recipeCount = (int)Math.floor(Math.random() * 4);
 
                     for (int i = 0; i < recipeCount; i++) {
                         MerchantRecipe recipe = new MerchantRecipe(getRandomItemStack(), 1);

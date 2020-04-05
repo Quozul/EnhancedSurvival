@@ -28,15 +28,7 @@ public class Banners implements Listener
                 else
                     ploc = block.getLocation().add(0.5, 1.75, 0.5);
 
-                final ArmorStand as = (ArmorStand)ploc.getWorld().spawn(ploc, (Class)ArmorStand.class);
-                final NBTEntity nbtent = new NBTEntity((Entity)as);
-
-                nbtent.setString("CustomName", name);
-                as.setGravity(false);
-                as.setCanPickupItems(false);
-                as.setCustomNameVisible(true);
-                as.setVisible(false);
-                as.setMarker(true);
+                Utils.spawnArmorStand(ploc, name);
             }
         }
     }
@@ -51,10 +43,7 @@ public class Banners implements Listener
             else
                 location = block.getLocation().add(0.5, 1.75, 0.5);
 
-            final List<Entity> near = (List<Entity>)location.getWorld().getEntities();
-            for (final Entity ent : near)
-                if (ent.getLocation().distance(location) == 0.0)
-                    ent.remove();
+            Utils.removeArmorStand(location);
         }
     }
 }

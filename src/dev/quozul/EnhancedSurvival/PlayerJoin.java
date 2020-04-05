@@ -46,8 +46,9 @@ public class PlayerJoin implements Listener {
             err.printStackTrace();
         }
 
-        sendTablist(e.getPlayer(), "§6§lPickaria", String.format("§7%d§6/§7%d §6joueurs", Bukkit.getOnlinePlayers().size(), Bukkit.getMaxPlayers()));
-        e.getPlayer().sendTitle("Bonjour " + e.getPlayer().getDisplayName(), "", 10, 40, 10);
+        for (Player p : Bukkit.getOnlinePlayers())
+            sendTablist(p, "§6§lPickaria", String.format("§7%d§6/§7%d §6joueurs", Bukkit.getOnlinePlayers().size(), Bukkit.getMaxPlayers()));
+        //e.getPlayer().sendTitle("Bonjour " + e.getPlayer().getDisplayName(), "", 10, 40, 10);
     }
 
     @EventHandler
