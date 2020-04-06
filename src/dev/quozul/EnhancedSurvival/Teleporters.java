@@ -15,6 +15,7 @@ public class Teleporters implements Listener {
     @EventHandler
     public void onPlayerInteract(PlayerInteractEvent e) {
         Block block = e.getClickedBlock();
+        if (block == null) return;
         Material blockType = block.getType();
         Location location = block.getLocation();
         World world = location.getWorld();

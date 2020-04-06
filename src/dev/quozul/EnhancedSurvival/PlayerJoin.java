@@ -1,6 +1,7 @@
 package dev.quozul.EnhancedSurvival;
 
 import net.minecraft.server.v1_15_R1.IChatBaseComponent;
+import net.minecraft.server.v1_15_R1.MinecraftServer;
 import net.minecraft.server.v1_15_R1.PacketPlayOutPlayerListHeaderFooter;
 import org.bukkit.Bukkit;
 import org.bukkit.Effect;
@@ -23,31 +24,33 @@ public class PlayerJoin implements Listener {
     public void onPlayerJoin(PlayerJoinEvent e) {
         e.setJoinMessage(String.format("§7[§6+§7]§r %s", e.getPlayer().getDisplayName()));
 
-        String sql = "SELECT uuid FROM user WHERE uuid = ?";
-        PreparedStatement stmt = null;
-        try {
-            stmt = Main.connection.prepareStatement(sql);
-            stmt.setString(1, e.getPlayer().getUniqueId().toString());
-            ResultSet results = stmt.executeQuery();
+        if (Main.connection != null) {
+            String sql = "SELECT uuid FROM user WHERE uuid = ?";
+            PreparedStatement stmt = null;
+            try {
+                stmt = Main.connection.prepareStatement(sql);
+                stmt.setString(1, e.getPlayer().getUniqueId().toString());
+                ResultSet results = stmt.executeQuery();
 
-            // If player isn't in database, add it, else do nothing
-            if (!results.next()) {
-                sql = "INSERT INTO user(uuid) VALUES(?)";
-                stmt = null;
-                try {
-                    stmt = Main.connection.prepareStatement(sql);
-                    stmt.setString(1, e.getPlayer().getUniqueId().toString());
-                    stmt.executeUpdate();
-                } catch (SQLException err) {
-                    err.printStackTrace();
+                // If player isn't in database, add it, else do nothing
+                if (!results.next()) {
+                    sql = "INSERT INTO user(uuid) VALUES(?)";
+                    stmt = null;
+                    try {
+                        stmt = Main.connection.prepareStatement(sql);
+                        stmt.setString(1, e.getPlayer().getUniqueId().toString());
+                        stmt.executeUpdate();
+                    } catch (SQLException err) {
+                        err.printStackTrace();
+                    }
                 }
+            } catch (SQLException err) {
+                err.printStackTrace();
             }
-        } catch (SQLException err) {
-            err.printStackTrace();
         }
 
         for (Player p : Bukkit.getOnlinePlayers())
-            sendTablist(p, "§6§lPickaria", String.format("§7%d§6/§7%d §6joueurs", Bukkit.getOnlinePlayers().size(), Bukkit.getMaxPlayers()));
+            sendTablist(p, "§6§lPickaria", String.format("§7%d§6/§7%d §6joueurs"));
         //e.getPlayer().sendTitle("Bonjour " + e.getPlayer().getDisplayName(), "", 10, 40, 10);
     }
 
@@ -62,7 +65,7 @@ public class PlayerJoin implements Listener {
         e.setQuitMessage(String.format("§7[§6-§7]§r %s", e.getPlayer().getDisplayName()));
 
         for (Player p : Bukkit.getOnlinePlayers())
-            sendTablist(p, "§6§lPickaria", String.format("§7%d§6/§7%d §6joueurs", Bukkit.getOnlinePlayers().size(), Bukkit.getMaxPlayers()));
+            sendTablist(p, "§6§lPickaria", String.format("§7%d§6/§7%d §6joueurs", Bukkit.getOnlinePlayers().size() - 1));
     }
 
     public void sendTablist(Player p, String Title, String subTitle) {
@@ -76,14 +79,14 @@ public class PlayerJoin implements Listener {
         packet.header = tabTitle;
         packet.footer = tabSubTitle;
 
-        try {
+        /*try {
             Field field = packet.getClass().getDeclaredField("b");
             field.setAccessible(true);
             field.set(packet, tabSubTitle);
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {
+        } finally {*/
             ((CraftPlayer)p).getHandle().playerConnection.sendPacket(packet);
-        }
+        //}
     }
 }
