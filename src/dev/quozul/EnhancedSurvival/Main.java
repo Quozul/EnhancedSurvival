@@ -31,7 +31,7 @@ public class Main extends JavaPlugin {
         url = config.getString("database-url");
 
         this.getServer().getPluginManager().registerEvents(new Banners(), this);
-        // this.getServer().getPluginManager().registerEvents((Listener)new Bed(), this);
+        // this.getServer().getPluginManager().registerEvents(new Bed(), this);
         this.getServer().getPluginManager().registerEvents(new Death(this.getConfig()), this);
 
         this.getServer().getPluginManager().registerEvents(new Motd(), this);
@@ -43,7 +43,8 @@ public class Main extends JavaPlugin {
         this.getServer().getPluginManager().registerEvents(new SecureChest(), this);
         this.getServer().getPluginManager().registerEvents(new Nitwit(), this);
         this.getServer().getPluginManager().registerEvents(new Fishing(), this);
-        this.getServer().getPluginManager().registerEvents(new Teleporters(), this);
+        // this.getServer().getPluginManager().registerEvents(new Teleporters(), this);
+        this.getServer().getPluginManager().registerEvents(new CoordinatesChorus(), this);
 
         this.getCommand("mute").setExecutor(new MuteCommand());
         this.getCommand("unmute").setExecutor(new UnMuteCommand());
