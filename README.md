@@ -41,6 +41,7 @@ It aims to improve and tweak the survival experience of Minecraft.
 #### Mobs
 - [ ] Animals can breed themselves by eating plants on ground (dropped items or grown plants)
 - [ ] Random chance to get a mob head
+- [x] Low chance to drop spawn egg from mob
 
 #### Plants
 - [ ] Right click on plants to harvest them
@@ -57,7 +58,7 @@ It aims to improve and tweak the survival experience of Minecraft.
 - [x] Banners' names displayed above (place a renamed banner)
 - [ ] Bigger phantoms the more nights a player don't sleep
 - [ ] Damage entity when stepping on stone cutter
-- [x] Teleporters using end gates
+- [x] Teleports to coordinates using renamed chorus fruit
 - [x] Server's motd
 
 #### Potions
@@ -65,9 +66,10 @@ It aims to improve and tweak the survival experience of Minecraft.
 
 #### Security
 - [x] Add keys to containers (shift-right-click on a container with a renamed item)
+- [x] Chunk claiming (requires database)
 
 #### Administration
-- [x] Mute and unmute players
+- [x] Mute and unmute players (requires database)
 - [x] Temporary bans
 
 More coming...

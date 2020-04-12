@@ -19,7 +19,7 @@ create table if not exists `chunk` (
     y integer,
     protected boolean default false,
 
-    user char(36) not null references `user`(uuid),
+    user char(36) references `user`(uuid),
     team integer default 0 references `team`(team_id),
 
     primary key (x, y)

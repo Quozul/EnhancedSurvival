@@ -17,3 +17,6 @@ commands:
     description: Ban a player for a specified amount of time
     usage: /tempban <player name> <time> <reason>
     default: op
+  claim:
+    description: Claim the chunk your currently in
+    usage: /claim

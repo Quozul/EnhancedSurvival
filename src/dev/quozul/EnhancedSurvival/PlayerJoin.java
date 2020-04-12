@@ -50,7 +50,7 @@ public class PlayerJoin implements Listener {
         }
 
         for (Player p : Bukkit.getOnlinePlayers())
-            sendTablist(p, "§6§lPickaria", String.format("§7%d§6/§7%d §6joueurs"));
+            sendTablist(p, "§6§lPickaria", String.format("§7%d§6/§7%d §6joueurs", Bukkit.getOnlinePlayers().size() - 1, Bukkit.getMaxPlayers()));
         //e.getPlayer().sendTitle("Bonjour " + e.getPlayer().getDisplayName(), "", 10, 40, 10);
     }
 
@@ -65,10 +65,10 @@ public class PlayerJoin implements Listener {
         e.setQuitMessage(String.format("§7[§6-§7]§r %s", e.getPlayer().getDisplayName()));
 
         for (Player p : Bukkit.getOnlinePlayers())
-            sendTablist(p, "§6§lPickaria", String.format("§7%d§6/§7%d §6joueurs", Bukkit.getOnlinePlayers().size() - 1));
+            sendTablist(p, "§6§lPickaria", String.format("§7%d§6/§7%d §6joueurs", Bukkit.getOnlinePlayers().size() - 1, Bukkit.getMaxPlayers()));
     }
 
-    public void sendTablist(Player p, String Title, String subTitle) {
+    public static void sendTablist(Player p, String Title, String subTitle) {
         if(Title == null) Title = "";
         if(subTitle == null) subTitle = "";
 
@@ -79,14 +79,6 @@ public class PlayerJoin implements Listener {
         packet.header = tabTitle;
         packet.footer = tabSubTitle;
 
-        /*try {
-            Field field = packet.getClass().getDeclaredField("b");
-            field.setAccessible(true);
-            field.set(packet, tabSubTitle);
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {*/
-            ((CraftPlayer)p).getHandle().playerConnection.sendPacket(packet);
-        //}
+        ((CraftPlayer)p).getHandle().playerConnection.sendPacket(packet);
     }
 }
