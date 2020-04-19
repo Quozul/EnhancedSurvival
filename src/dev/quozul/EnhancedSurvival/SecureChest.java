@@ -1,8 +1,6 @@
 package dev.quozul.EnhancedSurvival;
 
 import de.tr7zw.nbtapi.NBTTileEntity;
-import net.md_5.bungee.api.ChatMessageType;
-import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.GameMode;
 import org.bukkit.Sound;
 import org.bukkit.block.BlockState;
