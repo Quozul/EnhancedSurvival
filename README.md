@@ -32,6 +32,7 @@ It aims to improve and tweak the survival experience of Minecraft.
 - [ ] Remove "Too expensive" message in anvils
 - [ ] Add lightning enchantment
 - [x] Fishing with flame or fire aspect gives cooked fish
+- [ ] Auto smelting with flame or fire aspect on pickaxe
 
 #### Spawners
 - [x] Upgradable spawners (spawn rate, spawn amount, max nearby mobs) (right-click on a spawner)
@@ -71,5 +72,8 @@ It aims to improve and tweak the survival experience of Minecraft.
 #### Administration
 - [x] Mute and unmute players (requires database)
 - [x] Temporary bans
+
+#### Hoppers
+- [x] Hopper filters
 
 More coming...

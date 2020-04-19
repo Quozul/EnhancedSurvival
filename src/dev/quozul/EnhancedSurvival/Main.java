@@ -54,6 +54,7 @@ public class Main extends JavaPlugin {
         // this.getServer().getPluginManager().registerEvents(new Teleporters(), this);
         this.getServer().getPluginManager().registerEvents(new CoordinatesChorus(), this);
         this.getServer().getPluginManager().registerEvents(new SpawnEgg(), this);
+        this.getServer().getPluginManager().registerEvents(new HopperFilter(), this);
 
         this.getCommand("mute").setExecutor(new MuteCommand());
         this.getCommand("unmute").setExecutor(new UnMuteCommand());
@@ -90,7 +91,7 @@ public class Main extends JavaPlugin {
             String time = String.format("%02d:%02d", hours, minutes);
 
             for (Player p : Bukkit.getOnlinePlayers())
-                PlayerJoin.sendTablist(p, "§6§lPickaria", String.format("§7%d§6/§7%d §6joueurs\n§6TPS : §7%d/20\nHeure : %s", Bukkit.getOnlinePlayers().size() - 1, Bukkit.getMaxPlayers(), MinecraftServer.TPS, time));
+                PlayerJoin.sendTablist(p, "§6§lPickaria", String.format("§7%d§6/§7%d §6joueurs\n§6TPS : §7%.0f/20\nHeure : %s", Bukkit.getOnlinePlayers().size() - 1, Bukkit.getMaxPlayers(), MinecraftServer.getServer().recentTps[0], time));
         }, 0, 40);
     }
     
